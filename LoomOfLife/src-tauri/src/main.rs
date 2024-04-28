@@ -18,10 +18,6 @@ fn save(app_handle: tauri::AppHandle, file_name: &str) -> Result<(),String> {
 
 fn main() {
     tauri::Builder::default()
-        .setup(|app| {
-            let handle = app.handle();
-            Ok(())
-        })
         .invoke_handler(tauri::generate_handler![save])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

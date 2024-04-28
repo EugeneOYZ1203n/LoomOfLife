@@ -1,0 +1,19 @@
+.DailyEntry_row {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+}
+
+.DailyEntry_row * {
+    flex-grow: 10;
+}
+
+.DailyEntry_row :nth-child(1),:nth-child(2) {
+    flex-grow: 0;
+}
+
+.DailyEntry_column {
+    display: flex;
+    flex-direction: column;
+}
