@@ -1,21 +1,53 @@
 import { invoke } from "@tauri-apps/api/tauri";
+import { Store } from "tauri-plugin-store-api";
 import "./CalendarView.css";
-import SearchBar from "./SearchBar";
 import DailyEntry from "./DailyEntry/DailyEntry";
+import TopBar from "./Topbar/TopBar";
+import { useEffect, useState } from "react";
 
 function CalendarView() {
+  
+  const [vaultPath, setVaultPath] = useState("")
 
-  let dailyEntrys = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+  useEffect(()=>{
+    const getVaultPath = async () => {
+      const store = new Store(".settings.dat");
+      const vault_path = await store.get("vault_path");
+      
+      setVaultPath(vault_path?vaultPath.value:"");
+    }
+
+    if (vaultPath == ""){
+      getVaultPath();
+    }
+  }, [])
+
+  let dailyEntrys = [1,2,3,4,5,6,7];
 
   return (
     <div className="CalendarView">
-      <SearchBar />
+      <TopBar />
 
-      <div className="CalendarView_scrollSection">
-        {dailyEntrys.map((entry) => {
-          return <DailyEntry />
-        })}
-      </div>
+      {vaultPath == ""?
+        <div>
+          No Vault Selected.
+          If just selected, please restart the app.
+        </div>:
+
+        <div className="CalendarView_scrollSection">
+          {dailyEntrys.map((entry) => {
+            return <DailyEntry fileName={""} />
+          })}
+          
+          <div>
+            Select Week
+          </div>
+        </div>
+      }
+
+      
+
+
     </div>
   );
 }

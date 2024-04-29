@@ -8,7 +8,7 @@ import DiarySection from "./DiarySection.jsx";
 import DateDisplay from "./DateDisplay.jsx";
 import CoreHabitThreads from "./CoreHabitThreads.jsx";
 
-function DailyEntry() {
+function DailyEntry({fileName}) {
   return (
     <div className="DailyEntry_row">
       <DateDisplay />

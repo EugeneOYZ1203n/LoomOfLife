@@ -16,8 +16,11 @@
         "all": false,
         "open": true
       },
-      "fs": {
-        "scope": ["$RESOURCE/*"]
+      "path": {
+        "all": true
+      },
+      "dialog": {
+        "all": true
       }
     },
     "windows": [
@@ -40,9 +43,6 @@
         "icons/128x128@2x.png",
         "icons/icon.icns",
         "icons/icon.ico"
-      ],
-      "resources": [
-        "savefiles/*"
       ]
     }
   }
