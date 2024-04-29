@@ -13,14 +13,14 @@ function CalendarView() {
     const getVaultPath = async () => {
       const store = new Store(".settings.dat");
       const vault_path = await store.get("vault_path");
-      
-      setVaultPath(vault_path?vaultPath.value:"");
+  
+      setVaultPath(vault_path?vault_path.value:"");
     }
-
     if (vaultPath == ""){
       getVaultPath();
     }
   }, [])
+  
 
   let dailyEntrys = [1,2,3,4,5,6,7];
 
@@ -30,8 +30,7 @@ function CalendarView() {
 
       {vaultPath == ""?
         <div>
-          No Vault Selected.
-          If just selected, please restart the app.
+          No Vault Selected. Please select one and restart the app.
         </div>:
 
         <div className="CalendarView_scrollSection">
@@ -44,10 +43,6 @@ function CalendarView() {
           </div>
         </div>
       }
-
-      
-
-
     </div>
   );
 }
