@@ -2,13 +2,17 @@ import { open } from '@tauri-apps/api/dialog';
 import { appConfigDir } from '@tauri-apps/api/path';
 import { Store } from "tauri-plugin-store-api";
 import "./VaultSelection.css";
+import { useContext, useState } from 'react';
+import { VaultContext } from '../CalendarView';
+
+const store = new Store(".settings.dat");
 
 function VaultSelection() {
 
+    const [vaultPath, setVaultPath] = useContext(VaultContext);
+
     const chooseVault = async () => {
         try {
-            const store = new Store(".settings.dat");
-
             let current_path = await store.get("vault_path");
 
             if (current_path){
@@ -32,23 +36,19 @@ function VaultSelection() {
             await store.set("vault_path", {value: selected});
 
             await store.save();
+
+            setVaultPath(selected);
         } catch (err) {
             console.error(err);
         }
-    }
-
-    const clearStore = async () => {
-        const store = new Store(".settings.dat");
-
-        await store.clear();
     }
 
     return (
         <><div onClick={() => chooseVault()}>
             Vault
         </div>
-        <div onClick={() => clearStore()}>
-            Test Clear Store
+        <div>
+            {vaultPath}
         </div></>
     );
 }
