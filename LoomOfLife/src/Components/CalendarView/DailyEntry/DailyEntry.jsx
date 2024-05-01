@@ -26,7 +26,7 @@ function DailyEntry({date}) {
       setFileExists(output);
     }
     checkFileExists();
-  }, [date]);
+  }, [date, vaultPath]);
 
   // If exists, read the file on UseEffect with date dependency
   useEffect(()=>{
@@ -35,11 +35,12 @@ function DailyEntry({date}) {
         return;
       }
 
-      const output = await readTextFile(filePath);
+      const output = await readTextFile(filePath)
+        .catch(err => {console.log(err)});
       console.log(output);
     }
     readFileContents()
-  }, [fileExists]);
+  }, [fileExists, vaultPath]);
 
   // Parse file using tags and pass each set of strings to respective sections
  
@@ -50,7 +51,9 @@ function DailyEntry({date}) {
       
       <CoreHabitThreads />
 
-      <div className="DailyEntry_column">
+      {!fileExists?
+      <div>No such file</div>:
+      <><div className="DailyEntry_column">
         <HabitSection />
         <TasksSection />
         <NotesSection />
@@ -59,7 +62,8 @@ function DailyEntry({date}) {
       <div className="DailyEntry_column">
         <StatusSection />
         <DiarySection />
-      </div>
+      </div></>
+      }
     </div>
   );
 }

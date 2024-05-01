@@ -1,9 +1,11 @@
 import { open } from '@tauri-apps/api/dialog';
+import { relaunch } from '@tauri-apps/api/process';
 import { appConfigDir } from '@tauri-apps/api/path';
 import { Store } from "tauri-plugin-store-api";
 import "./VaultSelection.css";
 import { useContext, useState } from 'react';
 import { VaultContext } from '../CalendarView';
+
 
 const store = new Store(".settings.dat");
 
@@ -38,6 +40,8 @@ function VaultSelection() {
             await store.save();
 
             setVaultPath(selected);
+
+            await relaunch();
         } catch (err) {
             console.error(err);
         }

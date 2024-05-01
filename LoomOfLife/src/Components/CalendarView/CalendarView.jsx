@@ -17,16 +17,27 @@ function CalendarView() {
   const [vaultPath, setVaultPath] = useState("")
   const [selectedMonday, setSelectedMonday] = useState(getMonday(dayjs()))
 
+  const expandIntoScope = (path) => {
+    invoke("expand_scope", {folderPath: `${path}`});
+    invoke("get_scope_size");
+  }
+
   useEffect(()=>{
     const getVaultPath = async () => {
       const vault_path = await store.get("vault_path");
-  
-      setVaultPath(vault_path?vault_path.value:"");
+      if (vault_path){
+        expandIntoScope(vault_path.value);
+        setVaultPath(vault_path.value);
+      }
     }
-    if (vaultPath == ""){
-      getVaultPath();
-    }
+    getVaultPath();
   }, [])
+
+  useEffect(()=>{
+    if (vaultPath){
+      expandIntoScope(vaultPath);
+    }
+  }, [vaultPath])
 
   return (
     <SelectedMondayContext.Provider value = {[selectedMonday, setSelectedMonday]}>

@@ -19,11 +19,13 @@
       "path": {
         "all": true
       },
+      "process": {
+        "all": true
+      },
       "dialog": {
         "all": true
       },
       "fs": {
-        "scope": ["**", "**/**","/**/*"],
         "readFile": true,
         "writeFile": true,
         "readDir": true,
