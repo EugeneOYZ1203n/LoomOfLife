@@ -8,6 +8,10 @@ export const convertDateToString = (dayJSObj) => {
     return dayJSObj.format('DD MMM YY');
 }
 
+export const convertDateToFileName = (dayJSObj) => {
+    return dayJSObj.format('DD_MMM_YYYY.txt');
+}
+
 export const getWeekString = (mondayDayJSObj) => {
     let sundayDayJSObj = mondayDayJSObj.add(6,'day');
     return convertDateToString(mondayDayJSObj)

@@ -1,6 +1,5 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { Store } from "tauri-plugin-store-api";
-import { exists } from "@tauri-apps/api/fs";
 import "./CalendarView.css";
 import DailyEntry from "./DailyEntry/DailyEntry";
 import TopBar from "./Topbar/TopBar";
@@ -28,10 +27,6 @@ function CalendarView() {
       getVaultPath();
     }
   }, [])
-  
-  
-
-  let dailyEntrys = [1,2,3,4,5,6,7];
 
   return (
     <SelectedMondayContext.Provider value = {[selectedMonday, setSelectedMonday]}>
@@ -45,8 +40,8 @@ function CalendarView() {
           </div>:
 
           <div className="CalendarView_scrollSection">
-            {dailyEntrys.map((entry) => {
-              return <DailyEntry fileName={""} />
+            {[...Array(7)].map((_, i) => {
+              return <DailyEntry date={selectedMonday.add(i, 'day')} />
             })}
             
             <WeekSelector/>
