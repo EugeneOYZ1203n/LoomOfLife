@@ -1,9 +1,9 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { exists, readDir, readTextFile } from "@tauri-apps/api/fs";
+import { exists, readTextFile } from "@tauri-apps/api/fs";
 import "./DailyEntry.css";
 import TasksSection from "./TasksSection.jsx";
+import TracksSection from "./TracksSection.jsx";
 import HabitSection from "./HabitsSection.jsx";
-import NotesSection from "./NotesSection.jsx";
 import StatusSection from "./StatusSection.jsx";
 import DiarySection from "./DiarySection.jsx";
 import DateDisplay from "./DateDisplay.jsx";
@@ -17,7 +17,8 @@ function DailyEntry({date}) {
   const [vaultPath,setVaultPath] = useContext(VaultContext);
   const filePath = `${vaultPath}\\${fileName}`;
   const [fileExists, setFileExists] = useState(false);
-
+  const tagsToMatch = ["Habits", "Tracks", "Tasks", "Status", "Diary"]
+  const [parsedContents, setParsedContents] = useState({});
 
   // Check if file exists
   useEffect(()=>{
@@ -30,6 +31,18 @@ function DailyEntry({date}) {
 
   // If exists, read the file on UseEffect with date dependency
   useEffect(()=>{
+    const parseFileContents = (contents, tag) => {
+      let regex = new RegExp(`(?<=\<${tag}\>)(.*)(?=\<\/${tag}\>)`, "ms");
+
+      let matches = contents.match(regex);
+
+      if (matches){
+        return matches[0].trim();
+      }else {
+        return null;
+      }
+    }
+
     const readFileContents = async () => {
       if (!fileExists){
         return;
@@ -37,13 +50,22 @@ function DailyEntry({date}) {
 
       const output = await readTextFile(filePath)
         .catch(err => {console.log(err)});
+      
       console.log(output);
+
+      let parseDict = tagsToMatch.reduce((acc,el) => {
+        acc[el] = parseFileContents(output, el);
+        return acc;
+      }, {});
+
+      setParsedContents(parseDict);
     }
-    readFileContents()
+    
+    readFileContents();
   }, [fileExists, vaultPath]);
 
   // Parse file using tags and pass each set of strings to respective sections
- 
+  
 
   return (
     <div className="DailyEntry_row">
@@ -51,18 +73,23 @@ function DailyEntry({date}) {
       
       <CoreHabitThreads />
 
-      {!fileExists?
-      <div>No such file</div>:
-      <><div className="DailyEntry_column">
-        <HabitSection />
-        <TasksSection />
-        <NotesSection />
-      </div>
+      {!fileExists
+      ?<div>No entry</div>
+      :Object.keys(parsedContents).length === 0
+      ?<div>Loading...</div>
+      :
+      <>
+        <div className="DailyEntry_column">
+          <HabitSection contents={parsedContents[tagsToMatch[0]]}/>
+          <TracksSection contents={parsedContents[tagsToMatch[1]]}/>
+          <TasksSection contents={parsedContents[tagsToMatch[2]]}/>
+        </div>
 
-      <div className="DailyEntry_column">
-        <StatusSection />
-        <DiarySection />
-      </div></>
+        <div className="DailyEntry_column">
+          <StatusSection contents={parsedContents[tagsToMatch[3]]}/>
+          <DiarySection contents={parsedContents[tagsToMatch[4]]}/>
+        </div>
+      </>
       }
     </div>
   );

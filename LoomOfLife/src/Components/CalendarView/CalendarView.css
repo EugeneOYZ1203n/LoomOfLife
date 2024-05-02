@@ -6,16 +6,5 @@
 .CalendarView_scrollSection {
     overflow: scroll;
 
-    height: calc(100% - 50px);
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.CalendarView_scrollSection::-webkit-scrollbar {
-    display: none;
-  }
-  
-/* Hide scrollbar for IE, Edge and Firefox */
-.CalendarView_scrollSection {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    height: calc(100% - 50px - 30px);
 }

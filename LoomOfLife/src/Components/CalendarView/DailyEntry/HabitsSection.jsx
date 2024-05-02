@@ -1,10 +1,10 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import "./HabitsSection.css";
 
-function HabitsSection() {
+function HabitsSection({contents}) {
   return (
     <div>
-      Habits Section
+      {contents}
     </div>
   );
 }

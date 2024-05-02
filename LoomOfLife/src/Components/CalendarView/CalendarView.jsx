@@ -19,7 +19,7 @@ function CalendarView() {
 
   const expandIntoScope = (path) => {
     invoke("expand_scope", {folderPath: `${path}`});
-    invoke("get_scope_size");
+    //invoke("get_scope_size");
   }
 
   useEffect(()=>{
@@ -54,10 +54,10 @@ function CalendarView() {
             {[...Array(7)].map((_, i) => {
               return <DailyEntry date={selectedMonday.add(i, 'day')} />
             })}
-            
-            <WeekSelector/>
           </div>
         }
+
+        <WeekSelector/>
       </div>
     </VaultContext.Provider>
     </SelectedMondayContext.Provider>

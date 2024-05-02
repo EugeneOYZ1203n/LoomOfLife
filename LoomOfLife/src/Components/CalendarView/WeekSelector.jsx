@@ -13,11 +13,11 @@ function WeekSelector() {
     }
   
     return (
-        <div>
+        <div className="WeekSelector_Row">
             <button onClick={()=>shiftWeek(-52)}>{"<y"}</button>
             <button onClick={()=>shiftWeek(-4)}>{"<m"}</button>
             <button onClick={()=>shiftWeek(-1)}>{"<"}</button>
-            <div>{getWeekString(selectedMonday)}</div>
+            <p>{getWeekString(selectedMonday)}</p>
             <button onClick={()=>shiftWeek(1)}>{">"}</button>
             <button onClick={()=>shiftWeek(4)}>{"m>"}</button>
             <button onClick={()=>shiftWeek(52)}>{"y>"}</button>

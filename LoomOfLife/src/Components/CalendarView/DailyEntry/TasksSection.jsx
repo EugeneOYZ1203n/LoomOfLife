@@ -1,10 +1,10 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import "./TasksSection.css";
 
-function TasksSection() {
+function TasksSection({contents}) {
   return (
     <div>
-      Task Section
+      {contents}
     </div>
   );
 }

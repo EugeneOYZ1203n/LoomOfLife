@@ -1,0 +1,17 @@
+.WeekSelector_Row {
+    height: 30px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.WeekSelector_Row button {
+    margin: 0 5px;
+}
+
+.WeekSelector_Row p {
+    margin: 0 15px;
+}

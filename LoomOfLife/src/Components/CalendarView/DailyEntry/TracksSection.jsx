@@ -1,7 +1,7 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import "./DiarySection.css";
+import "./TracksSection.css";
 
-function DiarySection({contents}) {
+function TracksSection({contents}) {
   return (
     <div>
       {contents}
@@ -9,4 +9,4 @@ function DiarySection({contents}) {
   );
 }
 
-export default DiarySection;
+export default TracksSection;
