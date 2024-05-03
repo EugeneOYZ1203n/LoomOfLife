@@ -17,7 +17,6 @@ function DailyEntry({date}) {
   const [vaultPath,setVaultPath] = useContext(VaultContext);
   const filePath = `${vaultPath}\\${fileName}`;
   const [fileExists, setFileExists] = useState(false);
-  const tagsToMatch = ["Habits", "Tracks", "Tasks", "Status", "Diary"]
   const [parsedContents, setParsedContents] = useState({});
 
   // Check if file exists
@@ -53,6 +52,8 @@ function DailyEntry({date}) {
       
       console.log(output);
 
+      const tagsToMatch = ["Habits", "Tracks", "Tasks", "Status", "Diary"]
+
       let parseDict = tagsToMatch.reduce((acc,el) => {
         acc[el] = parseFileContents(output, el);
         return acc;
@@ -63,9 +64,6 @@ function DailyEntry({date}) {
     
     readFileContents();
   }, [fileExists, vaultPath]);
-
-  // Parse file using tags and pass each set of strings to respective sections
-  
 
   return (
     <div className="DailyEntry_row">
@@ -80,14 +78,14 @@ function DailyEntry({date}) {
       :
       <>
         <div className="DailyEntry_column">
-          <HabitSection contents={parsedContents[tagsToMatch[0]]}/>
-          <TracksSection contents={parsedContents[tagsToMatch[1]]}/>
-          <TasksSection contents={parsedContents[tagsToMatch[2]]}/>
+          <HabitSection contents={parsedContents.Habits}/>
+          <TracksSection contents={parsedContents.Tracks}/>
+          <TasksSection contents={parsedContents.Tasks}/>
         </div>
 
         <div className="DailyEntry_column">
-          <StatusSection contents={parsedContents[tagsToMatch[3]]}/>
-          <DiarySection contents={parsedContents[tagsToMatch[4]]}/>
+          <StatusSection contents={parsedContents.Status}/>
+          <DiarySection contents={parsedContents.Diary}/>
         </div>
       </>
       }
