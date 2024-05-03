@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/tauri";
-import { exists, readTextFile } from "@tauri-apps/api/fs";
+import { exists, readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import "./DailyEntry.css";
 import TasksSection from "./TasksSection.jsx";
 import TracksSection from "./TracksSection.jsx";
@@ -8,7 +8,7 @@ import StatusSection from "./StatusSection.jsx";
 import DiarySection from "./DiarySection.jsx";
 import DateDisplay from "./DateDisplay.jsx";
 import CoreHabitThreads from "./CoreHabitThreads.jsx";
-import { convertDateToFileName } from "../../Helper.js";
+import { convertDateToFileName, convertDateToString } from "../../Helper.js";
 import { useContext, useEffect, useState } from "react";
 import { VaultContext } from "../CalendarView.jsx";
 
@@ -16,8 +16,13 @@ function DailyEntry({date}) {
   const fileName = convertDateToFileName(date);
   const [vaultPath,setVaultPath] = useContext(VaultContext);
   const filePath = `${vaultPath}\\${fileName}`;
+
   const [fileExists, setFileExists] = useState(false);
+
   const [parsedContents, setParsedContents] = useState({});
+
+  //Boolean that is set by the editing function to update the parsed contents
+  const [reparseContents, setReparseContents] = useState(false);
 
   // Check if file exists
   useEffect(()=>{
@@ -28,7 +33,7 @@ function DailyEntry({date}) {
     checkFileExists();
   }, [date, vaultPath]);
 
-  // If exists, read the file on UseEffect with date dependency
+  // Parsing contents once file exists
   useEffect(()=>{
     const parseFileContents = (contents, tag) => {
       let regex = new RegExp(`(?<=\<${tag}\>)(.*)(?=\<\/${tag}\>)`, "ms");
@@ -50,7 +55,7 @@ function DailyEntry({date}) {
       const output = await readTextFile(filePath)
         .catch(err => {console.log(err)});
       
-      console.log(output);
+      //console.log(output);
 
       const tagsToMatch = ["Habits", "Tracks", "Tasks", "Status", "Diary"]
 
@@ -63,7 +68,38 @@ function DailyEntry({date}) {
     }
     
     readFileContents();
-  }, [fileExists, vaultPath]);
+  }, [fileExists, vaultPath, reparseContents]);
+
+  //Editing information for each section
+  const editFileContents = async (editTag, newContent) => {
+    if (!fileExists){
+      return; 
+    }
+
+    console.log(newContent);
+
+    const tagsToMatch = ["Habits", "Tracks", "Tasks", "Status", "Diary"]
+
+    let editedContent = tagsToMatch.reduce((acc,el)=>{
+      acc += `\n\n<${el}>\n`;
+      if (el == editTag){
+        acc += `${newContent}`;
+      } else{
+        acc += parsedContents[el];
+      }
+      acc += `\n</${el}>`;
+      return acc
+    }, convertDateToString(date));
+
+    console.log(editedContent);
+
+    await writeTextFile({ 
+      path: filePath, 
+      contents: editedContent
+    }).catch(err => {console.log(err)});
+
+    setReparseContents(!reparseContents);
+  }
 
   return (
     <div className="DailyEntry_row">
@@ -85,7 +121,7 @@ function DailyEntry({date}) {
 
         <div className="DailyEntry_column">
           <StatusSection contents={parsedContents.Status}/>
-          <DiarySection contents={parsedContents.Diary}/>
+          <DiarySection contents={parsedContents.Diary} editFileFunc={editFileContents}/>
         </div>
       </>
       }
