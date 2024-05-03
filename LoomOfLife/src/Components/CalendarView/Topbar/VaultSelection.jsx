@@ -48,12 +48,9 @@ function VaultSelection() {
     }
 
     return (
-        <><div onClick={() => chooseVault()}>
+        <div onClick={() => chooseVault()}>
             Vault
         </div>
-        <div>
-            {vaultPath}
-        </div></>
     );
 }
 

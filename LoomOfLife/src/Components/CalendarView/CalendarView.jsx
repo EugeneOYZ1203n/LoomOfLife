@@ -43,19 +43,18 @@ function CalendarView() {
     <SelectedMondayContext.Provider value = {[selectedMonday, setSelectedMonday]}>
     <VaultContext.Provider value = {[vaultPath, setVaultPath]}>
       <div className="CalendarView">
+        <div className="CalendarView_VaultPath">{vaultPath}</div>
         <TopBar />
 
-        {vaultPath == ""?
-          <div>
-            No Vault Selected.
-          </div>:
-
-          <div className="CalendarView_scrollSection">
-            {[...Array(7)].map((_, i) => {
-              return <DailyEntry date={selectedMonday.add(i, 'day')} />
-            })}
-          </div>
-        }
+        <div className="CalendarView_scrollSection">
+          {vaultPath == ""?
+          "No Vault Selected."
+          :
+          [...Array(7)].map((_, i) => {
+            return <DailyEntry date={selectedMonday.add(i, 'day')} />
+          })
+          }
+        </div>
 
         <WeekSelector/>
       </div>

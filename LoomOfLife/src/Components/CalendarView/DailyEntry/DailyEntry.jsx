@@ -6,7 +6,6 @@ import HabitSection from "./HabitsSection.jsx";
 import StatusSection from "./StatusSection.jsx";
 import DiarySection from "./DiarySection.jsx";
 import DateDisplay from "./DateDisplay.jsx";
-import CoreHabitThreads from "./CoreHabitThreads.jsx";
 import { convertDateToFileName, convertDateToString, getPastNowOrFuture } from "../../Helper.js";
 import { useContext, useEffect, useState } from "react";
 import { VaultContext } from "../CalendarView.jsx";
@@ -102,8 +101,6 @@ function DailyEntry({date}) {
   return (
     <div className="DailyEntry_row">
       <DateDisplay date={date}/>
-      
-      <CoreHabitThreads />
 
       {!fileExists
       ?<div>No entry</div>
@@ -112,18 +109,22 @@ function DailyEntry({date}) {
       :
       <>
         <div className="DailyEntry_column">
-          <HabitSection contents={parsedContents.Habits}/>
-          <TracksSection contents={parsedContents.Tracks}/>
+          {!(pastNowOrFuture=="Future") &&
+          <><HabitSection contents={parsedContents.Habits}/>
+          <TracksSection contents={parsedContents.Tracks}/></>
+          }
           <TasksSection contents={parsedContents.Tasks}/>
         </div>
-
+        
+        {!(pastNowOrFuture=="Future") &&
         <div className="DailyEntry_column">
           <StatusSection contents={parsedContents.Status}/>
           <DiarySection 
-            pastNowOrFuture={pastNowOrFuture} 
+            canEdit={pastNowOrFuture=="Now"}
             contents={parsedContents.Diary} 
             editFileFunc={editFileContents}/>
         </div>
+        }
       </>
       }
     </div>

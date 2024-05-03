@@ -1,11 +1,12 @@
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafb);
-}
-
-div {
+/* div {
   border: 1px solid red !important;
+} */
+
+* {
+  --bg_c : #000814;
+  --sub_bg_c : #0A111F;
+  --divisor_c : #1e325c;
+  --accent_c : #fca311;
+  --text_c : #ffffff;
+  --sub_text_c : #CCCCCC;
 }

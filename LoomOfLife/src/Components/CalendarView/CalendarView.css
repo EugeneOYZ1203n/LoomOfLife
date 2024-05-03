@@ -1,10 +1,38 @@
 .CalendarView {
     height: 100vh;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    background-color: var(--bg_c);
+    color: var(--text_c);
+}
+
+.CalendarView_VaultPath {
+    color: var(--divisor_c);
+    text-align: right;
+    margin-bottom: 4px;
+
+    font-size: smaller;
 }
 
 
 .CalendarView_scrollSection {
     overflow: scroll;
 
-    height: calc(100% - 50px - 30px);
+    flex-shrink: 2;
+    flex-basis: 100%;
+}
+
+.CalendarView_scrollSection::-webkit-scrollbar {
+    display: none;
+}
+  
+/* Hide scrollbar for IE, Edge and Firefox */
+.CalendarView_scrollSection {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }

@@ -9,9 +9,29 @@
 }
 
 .WeekSelector_Row button {
-    margin: 0 5px;
+    height: 100%;
+    width: 30px;
+
+    margin: 0px 8px;
+
+    text-align: center;
+    align-content: center;
+
+    border: none;
+    background-color: transparent;
+
+    color: var(--text_c);
+    font-size: medium;
+
+    cursor: pointer;
+}
+
+.WeekSelector_Row button:hover {
+    color: var(--accent_c);
 }
 
 .WeekSelector_Row p {
     margin: 0 15px;
+
+    color: var(--sub_text_c);
 }

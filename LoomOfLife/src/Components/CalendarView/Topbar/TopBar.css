@@ -1,6 +1,33 @@
-.TopBar_row {
+.TopBar {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     height: 50px;
+
+    margin-bottom: 20px;
+}
+
+.TopBar_item {
+    height: 100%;
+    width: 100%;
+
+    align-content: center;
+    text-align: center;
+
+    border: 2px solid var(--divisor_c);
+
+    margin-right: -2px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.TopBar_item:hover{
+    background-color: var(--sub_bg_c);
+    color: var(--accent_c);
+    font-size: 1.1em;
+
+    height: 110%;
 }

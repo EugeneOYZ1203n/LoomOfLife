@@ -6,7 +6,7 @@ function DateDisplay({date}) {
   let fullDate = date.format('DD MMM');
   
   return (
-    <div>
+    <div className="DateDisplay">
       <div className="DateDisplay_DayOfWeek">{dayOfWeek}</div>
       <div className="DateDisplay_FullDate">{fullDate}</div>
     </div>

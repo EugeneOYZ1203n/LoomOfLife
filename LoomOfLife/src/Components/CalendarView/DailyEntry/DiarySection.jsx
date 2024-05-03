@@ -2,27 +2,27 @@ import { invoke } from "@tauri-apps/api/tauri";
 import "./DiarySection.css";
 import { useState } from "react";
 
-function DiarySection({pastNowOrFuture, contents, editFileFunc}) {
+function DiarySection({canEdit, contents, editFileFunc}) {
   const [contentText, setContentText] = useState(contents?contents:"");
 
+  console.log({contentText})
+
   return (
-    <div>
-      {pastNowOrFuture=="Now"?
+    <div className="DiarySection">
+      {canEdit?
       <textarea 
+        className="DiarySection_Text"
         onChange={(e)=>{
           setContentText(e.target.value);
           editFileFunc("Diary", e.target.value);
         }}
         value = {contentText}>
       </textarea>
-      :pastNowOrFuture=="Past"?
-      <p>
+      :
+      <p className="DiarySection_Text">
         {contentText}
       </p>
-      :
-      <p>---</p>
       }
-      
     </div>
   );
 }
