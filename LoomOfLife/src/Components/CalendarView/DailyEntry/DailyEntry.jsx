@@ -1,4 +1,3 @@
-import { invoke } from "@tauri-apps/api/tauri";
 import { exists, readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import "./DailyEntry.css";
 import TasksSection from "./TasksSection.jsx";
@@ -8,7 +7,7 @@ import StatusSection from "./StatusSection.jsx";
 import DiarySection from "./DiarySection.jsx";
 import DateDisplay from "./DateDisplay.jsx";
 import CoreHabitThreads from "./CoreHabitThreads.jsx";
-import { convertDateToFileName, convertDateToString } from "../../Helper.js";
+import { convertDateToFileName, convertDateToString, getPastNowOrFuture } from "../../Helper.js";
 import { useContext, useEffect, useState } from "react";
 import { VaultContext } from "../CalendarView.jsx";
 
@@ -16,9 +15,8 @@ function DailyEntry({date}) {
   const fileName = convertDateToFileName(date);
   const [vaultPath,setVaultPath] = useContext(VaultContext);
   const filePath = `${vaultPath}\\${fileName}`;
-
+  const pastNowOrFuture = getPastNowOrFuture(date);
   const [fileExists, setFileExists] = useState(false);
-
   const [parsedContents, setParsedContents] = useState({});
 
   //Boolean that is set by the editing function to update the parsed contents
@@ -121,7 +119,10 @@ function DailyEntry({date}) {
 
         <div className="DailyEntry_column">
           <StatusSection contents={parsedContents.Status}/>
-          <DiarySection contents={parsedContents.Diary} editFileFunc={editFileContents}/>
+          <DiarySection 
+            pastNowOrFuture={pastNowOrFuture} 
+            contents={parsedContents.Diary} 
+            editFileFunc={editFileContents}/>
         </div>
       </>
       }

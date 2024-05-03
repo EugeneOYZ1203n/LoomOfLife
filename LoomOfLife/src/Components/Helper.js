@@ -21,3 +21,12 @@ export const getWeekString = (mondayDayJSObj) => {
 
 export const zeroPad = (num, places) => String(num).padStart(places, '0')
 
+export const getPastNowOrFuture = (date) => {
+    let diff = date.diff(dayjs(), 'hour');
+    return -30 < diff && diff < 1?
+        "Now"
+    :date.isBefore(dayjs(),'day')?
+        "Past"
+    :
+        "Future"
+    }

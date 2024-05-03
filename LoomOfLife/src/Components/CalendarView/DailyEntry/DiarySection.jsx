@@ -2,11 +2,12 @@ import { invoke } from "@tauri-apps/api/tauri";
 import "./DiarySection.css";
 import { useState } from "react";
 
-function DiarySection({contents, editFileFunc}) {
-  const [contentText, setContentText] = useState(contents);
+function DiarySection({pastNowOrFuture, contents, editFileFunc}) {
+  const [contentText, setContentText] = useState(contents?contents:"");
 
   return (
     <div>
+      {pastNowOrFuture=="Now"?
       <textarea 
         onChange={(e)=>{
           setContentText(e.target.value);
@@ -14,6 +15,14 @@ function DiarySection({contents, editFileFunc}) {
         }}
         value = {contentText}>
       </textarea>
+      :pastNowOrFuture=="Past"?
+      <p>
+        {contentText}
+      </p>
+      :
+      <p>---</p>
+      }
+      
     </div>
   );
 }
