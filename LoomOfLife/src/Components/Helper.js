@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 export const getMonday = (input) => {
-    return input.startOf('week').add(1,'day');
+    return (input.day() == 0)?input.startOf('week').subtract(6,'day'):input.startOf('week').add(1,'day');
 }
 
 export const convertDateToString = (dayJSObj) => {
