@@ -29,4 +29,30 @@ export const getPastNowOrFuture = (date) => {
         "Past"
     :
         "Future"
+}
+
+export const parseTagContents = (contents, tag) => {
+    let regex = new RegExp(`(?<=\<${tag}\>)(.*)(?=\<\/${tag}\>)`, "ms");
+
+    let matches = contents.match(regex);
+
+    if (matches){
+        return matches[0].trim();
+    }else {
+        return null;
     }
+}
+
+export const replaceTagContents = (oldContents, newContents, tag) => {
+    let regex = new RegExp(`(?<=\<${tag}\>)(.*)(?=\<\/${tag}\>)`, "ms");
+
+    let matches = oldContents.match(regex);
+
+    if (matches){
+        return oldContents.replace(regex, newContents);
+    }else {
+        return oldContents + `\n\n<${tag}>${newContents}</${tag}>`;
+    }
+
+    
+}

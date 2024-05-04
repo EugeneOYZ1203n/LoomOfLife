@@ -6,7 +6,7 @@ import HabitSection from "./HabitsSection.jsx";
 import StatusSection from "./StatusSection.jsx";
 import DiarySection from "./DiarySection.jsx";
 import DateDisplay from "./DateDisplay.jsx";
-import { convertDateToFileName, convertDateToString, getPastNowOrFuture } from "../../Helper.js";
+import { convertDateToFileName, convertDateToString, getPastNowOrFuture, parseTagContents } from "../../Helper.js";
 import { useContext, useEffect, useState } from "react";
 import { VaultContext } from "../CalendarView.jsx";
 
@@ -32,18 +32,6 @@ function DailyEntry({date}) {
 
   // Parsing contents once file exists
   useEffect(()=>{
-    const parseFileContents = (contents, tag) => {
-      let regex = new RegExp(`(?<=\<${tag}\>)(.*)(?=\<\/${tag}\>)`, "ms");
-
-      let matches = contents.match(regex);
-
-      if (matches){
-        return matches[0].trim();
-      }else {
-        return null;
-      }
-    }
-
     const readFileContents = async () => {
       if (!fileExists){
         return;
@@ -57,7 +45,7 @@ function DailyEntry({date}) {
       const tagsToMatch = ["Habits", "Tracks", "Tasks", "Status", "Diary"]
 
       let parseDict = tagsToMatch.reduce((acc,el) => {
-        acc[el] = parseFileContents(output, el);
+        acc[el] = parseTagContents(output, el);
         return acc;
       }, {});
 
@@ -73,8 +61,6 @@ function DailyEntry({date}) {
       return; 
     }
 
-    console.log(newContent);
-
     const tagsToMatch = ["Habits", "Tracks", "Tasks", "Status", "Diary"]
 
     let editedContent = tagsToMatch.reduce((acc,el)=>{
@@ -87,8 +73,6 @@ function DailyEntry({date}) {
       acc += `\n</${el}>`;
       return acc
     }, convertDateToString(date));
-
-    console.log(editedContent);
 
     await writeTextFile({ 
       path: filePath, 
@@ -107,25 +91,20 @@ function DailyEntry({date}) {
       :Object.keys(parsedContents).length === 0
       ?<div>Loading...</div>
       :
-      <>
-        <div className="DailyEntry_column">
-          {!(pastNowOrFuture=="Future") &&
-          <><HabitSection contents={parsedContents.Habits}/>
-          <TracksSection contents={parsedContents.Tracks}/></>
-          }
-          <TasksSection contents={parsedContents.Tasks}/>
-        </div>
-        
-        {!(pastNowOrFuture=="Future") &&
-        <div className="DailyEntry_column">
-          <StatusSection contents={parsedContents.Status}/>
-          <DiarySection 
-            canEdit={pastNowOrFuture=="Now"}
-            contents={parsedContents.Diary} 
-            editFileFunc={editFileContents}/>
-        </div>
-        }
-      </>
+      <div className="DailyEntry_column">
+        <TasksSection contents={parsedContents.Tasks}/>
+        {!(pastNowOrFuture=="Future") && <>
+        <HabitSection contents={parsedContents.Habits}/>
+        <TracksSection contents={parsedContents.Tracks}/>
+        <StatusSection 
+          contents={parsedContents.Status}
+          editFileFunc={editFileContents}/>
+        <DiarySection 
+          canEdit={pastNowOrFuture=="Now"}
+          contents={parsedContents.Diary} 
+          editFileFunc={editFileContents}/>
+          </>}
+      </div>
       }
     </div>
   );

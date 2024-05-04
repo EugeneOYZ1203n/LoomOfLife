@@ -9,11 +9,18 @@
 
 .DiarySection_Text {
     width: 100%;
-    height: 100%;
+    height: auto;
 
     border: none;
     background-color: transparent;
     color: var(--text_c);
 
     white-space: pre;
+
+    resize: none;
+    outline: none;
+}
+
+.DiarySection:has(.DiarySection_Text:focus) {
+    background-color: var(--divisor_c);
 }
