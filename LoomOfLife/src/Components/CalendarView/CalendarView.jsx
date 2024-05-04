@@ -77,8 +77,6 @@ function CalendarView() {
         <div className="CalendarView_VaultPath">{vaultPath}</div>
         <TopBar />
 
-        {configText}
-
         <div className="CalendarView_scrollSection">
           {vaultPath == ""?
           "No Vault Selected."

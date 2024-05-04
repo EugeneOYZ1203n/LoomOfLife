@@ -1,0 +1,117 @@
+.StatusSection_Health, .StatusSection_Mood, .StatusSection_Tags {
+    display: flex;
+    flex-direction: row;
+
+    height: fit-content;
+
+}
+
+.StatusSection_Health > *, .StatusSection_Mood > * , .StatusSection_Tags > *{
+    flex-grow: 1;
+    flex-basis: 80px;
+}
+
+.StatusSection_Label {
+    margin-right: 12px;
+    width: 55px;
+    height: auto;
+
+    align-content: center;
+
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: initial;
+    color: var(--sub_text_c);
+}
+
+.StatusSection_Disabled .StatusSection_Select__control{
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--divisor_c);
+}
+
+.StatusSection_Select__control {
+    min-height: 0 !important;
+
+    border: 1px solid var(--divisor_c);
+
+    margin: 5px;
+
+    padding: 8px;
+    border-radius: 8px;
+
+    font-size: 0.95rem;
+    color: var(--text_c);
+
+    transition: 2s;
+
+    cursor: text;
+}
+
+.StatusSection_Select__control--menu-is-open {
+    background-color: var(--divisor_c) !important;
+}
+
+.StatusSection_Disabled .StatusSection_Select__indicators{
+    display: none;
+}
+
+.StatusSection_Select__indicators {
+    flex-grow: 0;
+}
+
+.StatusSection_Disabled .StatusSection_Select__multi-value{
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+    margin: 0 8px 0 0;
+    border-right: 1px solid var(--divisor_c);
+    padding: 0 8px 0 0;
+}
+
+.StatusSection_Disabled .StatusSection_Select__multi-value__remove{
+    display: none;
+}
+
+.StatusSection_Select__multi-value {
+    flex-grow: 0;
+    background-color: var(--sub_bg_c);
+
+    margin: 4px 4px;
+    padding: 8px;
+
+    border: 1px solid var(--divisor_c);
+    border-radius: 8px;
+}
+
+.StatusSection_Select__menu {
+    background-color: var(--sub_bg_c);
+
+    padding: 8px;
+
+    border: 1px solid var(--divisor_c);
+    border-radius: 8px;
+}
+
+.StatusSection_Select__menu-list::-webkit-scrollbar {
+    display: none;
+}
+  
+/* Hide scrollbar for IE, Edge and Firefox */
+.StatusSection_Select__menu-list {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.StatusSection_Select__option {
+    margin: 4px 0;
+    padding: 4px 0;
+    align-content: center;
+    border-bottom: 1px solid var(--divisor_c);
+    transition: 0.1s;
+}
+
+.StatusSection_Select__option:hover {
+    color: var(--accent_c);
+    font-size: large;
+}

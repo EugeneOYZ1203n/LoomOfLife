@@ -1,9 +1,9 @@
 .DateDisplay {
     width: 80px;
-    height: 100%;
+    height: fit-content;
     flex-shrink: 0;
 
-    border-right: 2px solid var(--accent_c);
+    border-right: 1px solid var(--accent_c);
     margin-right: 12px;
 
     text-align: center;
@@ -22,4 +22,9 @@
     color: var(--sub_text_c);
 
     font-size: smaller;
+}
+
+.DateDisplay.DateDisplay_Emphasis {
+    height: auto;
+    border-right: 3px double var(--accent_c);
 }

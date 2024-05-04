@@ -97,6 +97,7 @@ function DailyEntry({date}) {
         <HabitSection contents={parsedContents.Habits}/>
         <TracksSection contents={parsedContents.Tracks}/>
         <StatusSection 
+          canEdit={pastNowOrFuture=="Now"}
           contents={parsedContents.Status}
           editFileFunc={editFileContents}/>
         <DiarySection 

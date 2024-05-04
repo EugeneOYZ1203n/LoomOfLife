@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/tauri";
+import dayjs from "dayjs";
 import "./DateDisplay.css";
 
 function DateDisplay({date}) {
@@ -6,7 +7,7 @@ function DateDisplay({date}) {
   let fullDate = date.format('DD MMM');
   
   return (
-    <div className="DateDisplay">
+    <div className={`DateDisplay ${date.isSame(dayjs(), 'day')?"DateDisplay_Emphasis":""}`}>
       <div className="DateDisplay_DayOfWeek">{dayOfWeek}</div>
       <div className="DateDisplay_FullDate">{fullDate}</div>
     </div>
