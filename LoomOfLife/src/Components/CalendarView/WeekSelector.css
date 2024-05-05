@@ -8,11 +8,17 @@
     justify-content: center;
 }
 
-.WeekSelector_Row button {
-    height: 100%;
-    width: 30px;
+.WeekSelector_Row * {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: block;
+    line-height: 1em; /* a */
+    max-height: 2em;
+}
 
-    margin: 0px 8px;
+.WeekSelector_Row button {
+    margin: 0px 4px;
 
     text-align: center;
     align-content: center;
@@ -21,7 +27,6 @@
     background-color: transparent;
 
     color: var(--text_c);
-    font-size: medium;
 
     cursor: pointer;
 }
@@ -31,7 +36,13 @@
 }
 
 .WeekSelector_Row p {
-    margin: 0 15px;
+    text-align: center;
+    align-content: center;
+
+    margin: 0 8px;
 
     color: var(--sub_text_c);
+
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
 }
