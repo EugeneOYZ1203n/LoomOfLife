@@ -6,8 +6,8 @@ import Creatable, { useCreatable } from 'react-select/creatable';
 import { ConfigTextContext } from "../CalendarView";
 import { parseTagContents, replaceTagContents } from "../../Helper";
 
-const moodOptions = ['Stressed', 'Sad', 'Meh', 'Happy', 'Excited'];
-const healthTagOptions = ['Hospitalized', 'Sick', 'Tired', 'Healthy'];
+const moodOptions = ['😣 Stressed', '😞 Sad', '😑 Meh', '🙂 Happy', '😁 Excited'];
+const healthTagOptions = ['🤕 Hospitalized', '🤒 Sick', '😩 Tired', '👌 Healthy'];
 
 const toOptionsObj = (options) => {
   return options.map((el)=>{return {value: el, label: el}})
@@ -149,7 +149,7 @@ function StatusSection({canEdit, contents, editFileFunc}) {
           onChange={(e)=>{
             setHealth({tag: e.value, illness: e.value=="Healthy"?"":health.illness});}}/>
         
-        {(health.tag=='Sick'||health.tag=='Hospitalized') && 
+        {(health.tag==healthTagOptions[0]||health.tag==healthTagOptions[1]) && 
         <Creatable
           unstyled
           isDisabled={!canEdit}
