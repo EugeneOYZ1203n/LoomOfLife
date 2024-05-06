@@ -40,10 +40,15 @@
 
 .TaskSection_Row {
     display: flex;
+    
+    flex-grow: 1;
 }
 
 .TaskSection_Column {
     display: flex;
+
+    flex-grow: 1;
+
     flex-direction: column;
 }
 
@@ -73,6 +78,8 @@
     padding: 5px;
 
     color: var(--text_c);
+
+    flex-grow: 1;
 }
 
 .TaskSection_TaskName:focus {

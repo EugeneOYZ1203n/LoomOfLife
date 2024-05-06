@@ -51,6 +51,7 @@ function TasksSection({canEdit, contents, editFileFunc}) {
     }]);
   }
 
+  //Writing contents to save file
   useEffect(()=>{
     if (!hasParsedContents){
       return;
