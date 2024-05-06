@@ -52,11 +52,6 @@
   margin: 0;
 }
 
-/* Firefox */
-.TracksSection_Input {
-  -moz-appearance: textfield;
-}
-
 .TracksSection_Input:focus {
     outline: none;
     background-color: var(--divisor_c)
