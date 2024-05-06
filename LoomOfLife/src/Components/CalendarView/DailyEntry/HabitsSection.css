@@ -1,0 +1,59 @@
+.HabitsSection {
+    margin-bottom: 12px;
+}
+
+.HabitsSection_Item {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 8px;
+}
+
+.HabitsSection_Checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    height: 17px;
+    width: 17px;
+
+    margin: 4px;
+
+    flex-grow: 0;
+}
+
+.HabitsSection_Checkbox::before{
+    content: "";
+    width: 12px;
+    height: 12px;
+    font-size: xx-small;
+
+    border: 2px solid var(--accent_c);
+    border-radius: 6px;
+}
+
+.HabitsSection_Checkbox:checked::before {
+    background-color: var(--accent_c);
+}
+
+.HabitsSection_Row {
+    display: flex;
+    
+    flex-grow: 1;
+}
+
+.HabitsSection_Name {
+    font-size: medium;
+
+    border: none;
+    border-bottom: 1px solid var(--divisor_c);
+    background-color: transparent;
+
+    padding: 5px;
+
+    color: var(--text_c);
+
+    flex-grow: 1;
+}

@@ -21,3 +21,26 @@
 
     padding: 0px 8px;
 }
+
+
+.DailyEntry_MinimizeBtn {
+    flex-grow: 1;
+    height: 20px;
+
+    font-size: small;
+
+    border-style: solid;
+    border-radius: 6px;
+    border: 2px solid var(--divisor_c);
+    background-color: transparent;
+
+    color: var(--sub_text_c);
+    text-align: center;
+
+    margin: 4px 0 12px;
+}
+
+.DailyEntry_MinimizeBtn:hover {
+    background-color: var(--divisor_c);
+    color: var(--text_c);
+}

@@ -18,12 +18,14 @@ function DailyEntry({date}) {
   const pastNowOrFuture = getPastNowOrFuture(date);
   const [fileExists, setFileExists] = useState(false);
   const [parsedContents, setParsedContents] = useState({});
+  const [isMinimized, setIsMinimized] = useState(true);
 
   //Boolean that is set by the editing function to update the parsed contents
   const [reparseContents, setReparseContents] = useState(false);
 
   // Check if file exists
   useEffect(()=>{
+    setIsMinimized(pastNowOrFuture=="Past"?true:false)
     const checkFileExists = async () => {
       const output = await exists(filePath);
       setFileExists(output);
@@ -81,7 +83,7 @@ function DailyEntry({date}) {
     }).catch(err => {console.log(err)});
 
     setReparseContents(!reparseContents);
-  }, 500)
+  }, 1200)
 
   return (
     <div className="DailyEntry_row">
@@ -93,13 +95,16 @@ function DailyEntry({date}) {
       ?<div>Loading...</div>
       :
       <div className="DailyEntry_column">
+        {!(pastNowOrFuture=="Future") &&<HabitSection 
+          canEdit={pastNowOrFuture=="Now"}
+          contents={parsedContents.Habits}
+          editFileFunc={editFileContents}/>}
         <TasksSection 
           isEmptyFile={false}
           canEdit={pastNowOrFuture!="Past"}
           contents={parsedContents.Tasks}
           editFileFunc={editFileContents}/>
-        {!(pastNowOrFuture=="Future") && <>
-        <HabitSection contents={parsedContents.Habits}/>
+        {!(pastNowOrFuture=="Future")&&(!isMinimized) && <>
         <StatusSection 
           canEdit={pastNowOrFuture=="Now"}
           contents={parsedContents.Status}
@@ -113,6 +118,11 @@ function DailyEntry({date}) {
           contents={parsedContents.Diary} 
           editFileFunc={editFileContents}/>
           </>}
+        {!(pastNowOrFuture=="Future") && <button
+          className="DailyEntry_MinimizeBtn" 
+          onClick={(e)=>{setIsMinimized(!isMinimized)}}>
+            {isMinimized?"▼":"▲"}
+        </button>}
       </div>
       }
     </div>

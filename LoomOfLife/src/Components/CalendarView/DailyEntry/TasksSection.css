@@ -52,22 +52,6 @@
     flex-direction: column;
 }
 
-.TaskSection_ProjectName {
-    font-size: x-small;
-    
-    border: none;
-    background-color: transparent;
-
-    color: var(--accent_c);
-
-    flex-grow: 1;
-}
-
-.TaskSection_ProjectName:focus{
-    outline: none;
-    background-color: var(--divisor_c);
-}
-
 .TaskSection_TaskName {
     font-size: medium;
 
