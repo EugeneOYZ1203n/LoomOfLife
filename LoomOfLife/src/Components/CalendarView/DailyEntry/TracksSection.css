@@ -1,0 +1,69 @@
+.TracksSection {
+    display: flex;
+    flex-direction: row;
+
+    height: fit-content;
+}
+
+.TracksSection_Label {
+    margin: auto;
+    margin-right: 12px;
+    width: 55px;
+
+    align-content: center;
+
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: initial;
+    color: var(--sub_text_c);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    max-height: auto;
+    line-height: 1em;
+    max-height: 2em;
+
+    font-size: small;
+}
+
+.TracksSection_Input {
+    flex-grow: 1;
+
+    min-height: 0 !important;
+    background-color: transparent;
+
+    border: 1px solid var(--divisor_c);
+
+    margin: 5px;
+
+    padding: 8px;
+    border-radius: 8px;
+
+    font-size: 0.95rem;
+    color: var(--text_c);
+
+    cursor: text;
+}
+
+.TracksSection_Input::-webkit-outer-spin-button,
+.TracksSection_Input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.TracksSection_Input {
+  -moz-appearance: textfield;
+}
+
+.TracksSection_Input:focus {
+    outline: none;
+    background-color: var(--divisor_c)
+}
+
+.TracksSection_Disabled .TracksSection_Input {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--divisor_c);
+}

@@ -43,8 +43,6 @@
     font-size: 0.95rem;
     color: var(--text_c);
 
-    transition: 2s;
-
     cursor: text;
 }
 

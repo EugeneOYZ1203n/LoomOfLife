@@ -100,10 +100,13 @@ function DailyEntry({date}) {
           editFileFunc={editFileContents}/>
         {!(pastNowOrFuture=="Future") && <>
         <HabitSection contents={parsedContents.Habits}/>
-        <TracksSection contents={parsedContents.Tracks}/>
         <StatusSection 
           canEdit={pastNowOrFuture=="Now"}
           contents={parsedContents.Status}
+          editFileFunc={editFileContents}/>
+        <TracksSection 
+          canEdit={pastNowOrFuture=="Now"}
+          contents={parsedContents.Tracks}
           editFileFunc={editFileContents}/>
         <DiarySection 
           canEdit={pastNowOrFuture=="Now"}
