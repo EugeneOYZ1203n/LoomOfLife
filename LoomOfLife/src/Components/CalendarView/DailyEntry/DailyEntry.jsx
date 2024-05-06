@@ -9,6 +9,7 @@ import DateDisplay from "./DateDisplay.jsx";
 import { convertDateToFileName, convertDateToString, getPastNowOrFuture, parseTagContents } from "../../Helper.js";
 import { useContext, useEffect, useState } from "react";
 import { VaultContext } from "../CalendarView.jsx";
+import { useDebouncedCallback } from 'use-debounce';
 
 function DailyEntry({date}) {
   const fileName = convertDateToFileName(date);
@@ -56,7 +57,7 @@ function DailyEntry({date}) {
   }, [fileExists, vaultPath, reparseContents]);
 
   //Editing information for each section
-  const editFileContents = async (editTag, newContent) => {
+  const editFileContents = useDebouncedCallback(async (editTag, newContent) => {
     if (!fileExists){
       return; 
     }
@@ -80,19 +81,23 @@ function DailyEntry({date}) {
     }).catch(err => {console.log(err)});
 
     setReparseContents(!reparseContents);
-  }
+  }, 500)
 
   return (
     <div className="DailyEntry_row">
       <DateDisplay date={date}/>
 
-      {!fileExists
-      ?<div>No entry</div>
+      {!fileExists?
+      <div>No entry</div>
       :Object.keys(parsedContents).length === 0
       ?<div>Loading...</div>
       :
       <div className="DailyEntry_column">
-        <TasksSection contents={parsedContents.Tasks}/>
+        <TasksSection 
+          isEmptyFile={false}
+          canEdit={pastNowOrFuture!="Past"}
+          contents={parsedContents.Tasks}
+          editFileFunc={editFileContents}/>
         {!(pastNowOrFuture=="Future") && <>
         <HabitSection contents={parsedContents.Habits}/>
         <TracksSection contents={parsedContents.Tracks}/>

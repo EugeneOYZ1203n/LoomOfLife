@@ -147,7 +147,7 @@ function StatusSection({canEdit, contents, editFileFunc}) {
           options={toOptionsObj(healthTagOptions)} 
           value={toAOptionObj(health.tag)} 
           onChange={(e)=>{
-            setHealth({tag: e.value, illness: e.value=="Healthy"?"":health.illness});}}/>
+            setHealth({tag: e.value, illness: e.value==healthTagOptions[3]?"":health.illness});}}/>
         
         {(health.tag==healthTagOptions[0]||health.tag==healthTagOptions[1]) && 
         <Creatable
