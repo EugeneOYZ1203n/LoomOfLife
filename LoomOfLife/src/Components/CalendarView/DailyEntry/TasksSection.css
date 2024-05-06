@@ -19,7 +19,9 @@
     height: 17px;
     width: 17px;
 
-    margin: auto
+    margin: 4px;
+
+    flex-grow: 0;
 }
 
 .TaskSection_Checkbox::before{
@@ -43,8 +45,6 @@
 .TaskSection_Column {
     display: flex;
     flex-direction: column;
-
-    flex-grow: 1;
 }
 
 .TaskSection_ProjectName {
@@ -54,6 +54,8 @@
     background-color: transparent;
 
     color: var(--accent_c);
+
+    flex-grow: 1;
 }
 
 .TaskSection_ProjectName:focus{

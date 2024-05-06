@@ -74,27 +74,36 @@ function TasksSection({canEdit, contents, editFileFunc}) {
           <div className="TaskSection_Column">
             <div className="TaskSection_Row">
               <input 
-              className="TaskSection_Checkbox"
-              type="checkbox" checked={task.done}
-              onChange={(e)=>editTask(i, {
-                ...task, done: e.target.checked
-              })}/>
+                disabled={!canEdit}
+                className="TaskSection_Checkbox"
+                type="checkbox" checked={task.done}
+                onChange={(e)=>editTask(i, {
+                  ...task, done: e.target.checked
+                })}/>
               <input 
+                disabled={!canEdit}
                 className="TaskSection_TaskName"
                 value={task.taskName}
                 onChange={(e)=>editTask(i, {
                   ...task, taskName: e.target.value
                 })}/>
-              <button className="TaskSection_MinimizeBtn" onClick={(e)=>editTask(i, {
-                ...task, minimize: !task.minimize
+              <button 
+                className="TaskSection_MinimizeBtn" 
+                onClick={(e)=>editTask(i, {
+                  ...task, minimize: !task.minimize
               })}>
                 -
               </button>
-              <button className="TaskSection_DeleteBtn" onClick={(e)=>deleteTask(i)}>
+              {canEdit && <button  
+                className="TaskSection_DeleteBtn" 
+                onClick={(e)=>deleteTask(i)
+              }>
                 x
-              </button>
+              </button>}
             </div>
-            {!task.minimize && <TextareaAutosize className="TaskSection_Description"
+            {!task.minimize && <TextareaAutosize 
+              disabled={!canEdit} 
+              className="TaskSection_Description"
               value={task.desc}
               onChange={(e)=>editTask(i, {
                 ...task, desc: e.target.value
@@ -103,9 +112,9 @@ function TasksSection({canEdit, contents, editFileFunc}) {
         </div>
       })}
 
-      <button className="TaskSection_AddBtn" onClick={(e)=>addTask()}>
+      {canEdit && <button className="TaskSection_AddBtn" onClick={(e)=>addTask()}>
         +
-      </button>
+      </button>}
     </div>
   );
 }
